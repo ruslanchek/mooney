@@ -1,21 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { MainScreen } from './screens/MainScreen';
+import { AppearanceProvider } from 'react-native-appearance';
+import { useColorStyles } from './hooks/useColorStyles';
 
 export default function App() {
+  const rootStyle = useColorStyles(styles.rootLight, styles.rootDark);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AppearanceProvider>
+      <View style={[styles.root, rootStyle]}>
+        <SafeAreaView style={styles.safeArea}>
+          <StatusBar style={'auto'} animated />
+          <MainScreen />
+        </SafeAreaView>
+      </View>
+    </AppearanceProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
+  },
+  rootLight: {
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  rootDark: {
+    backgroundColor: '#000',
+  },
+  safeArea: {
+    flex: 1,
   },
 });
